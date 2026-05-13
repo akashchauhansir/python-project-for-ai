@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+</head>
+<body>
+  <div class="container">
+    <h1>📝 Task Manager</h1>
+
+    <!-- Add Task Form -->
+    <div class="add-task">
+      <input type="text" id="taskInput" placeholder="Enter a new task..." />
+      <button onclick="addTask()">Add Task</button>
+    </div>
+
+    <!-- Task List -->
+    <ul id="taskList">
+      {% for task in tasks %}
+      <li class="task-item {% if task.done %}done{% endif %}" data-id="{{ task.id }}">
+        <span onclick="toggleTask({{ task.id }}, this.parentElement)">
+          {{ task.title }}
+        </span>
+        <span class="badge">{% if task.done %}✅{% else %}⏳{% endif %}</span>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <p class="footer">Built with Flask &amp; Vanilla JS</p>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
